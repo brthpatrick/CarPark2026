@@ -4,6 +4,13 @@ import type { Car } from "../models/car";
  
 export type Filters = {
     manufacturer: string
+    model: string
+    fuelType: string
+    gearbox: string
+    yearMin: string
+    yearMax: string
+    priceMin: string
+    priceMax: string
 }
 
 export type FiltersContextType = {

@@ -11,11 +11,44 @@ export function Content() {
     const { carsList, isLoading, isError } = useCarsList()
 
     const filteredCarsList = carsList.filter((car) => {
-        return filters.manufacturer === "" ||
-            car.manufacturer.toLowerCase().includes(filters.manufacturer.toLowerCase())
+    if (filters.manufacturer !== "" &&
+        !car.manufacturer.toLowerCase().includes(filters.manufacturer.toLowerCase())) {
+        return false
+    }
+
+    if (filters.model !== "" &&
+        !car.model.toLowerCase().includes(filters.model.toLowerCase())) {
+        return false
+    }
+
+    if (filters.fuelType !== "" && car.fuelType !== filters.fuelType) {
+        return false
+    }
+
+    if (filters.gearbox !== "" && car.gearbox !== filters.gearbox) {
+        return false
+    }
+
+    if (filters.yearMin !== "" && car.constructionYear < Number(filters.yearMin)) {
+        return false
+    }
+
+    if (filters.yearMax !== "" && car.constructionYear > Number(filters.yearMax)) {
+        return false
+    }
+
+    if (filters.priceMin !== "" && car.price < Number(filters.priceMin)) {
+        return false
+    }
+
+    if (filters.priceMax !== "" && car.price > Number(filters.priceMax)) {
+        return false
+    }
+
+    return true
     })
 
-    return (
+     return (
         <Box sx={{ py: 3 }}>
             <FiltersPanel />
             <SortingPanel />

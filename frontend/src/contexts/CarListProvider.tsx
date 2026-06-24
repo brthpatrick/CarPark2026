@@ -24,7 +24,12 @@ export function CarListProvider({ children }: PropsWithChildren) {
         setIsError(false)
         try {
             const params: GetCarsParams = {
-                filters,
+                filters: {
+                    manufacturer: filters.manufacturer,
+                    model: filters.model,
+                    fuelType: filters.fuelType,
+                    gearbox: filters.gearbox,
+                },
                 page,
                 limit,
                 sort,

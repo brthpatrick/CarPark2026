@@ -8,13 +8,20 @@ import type { Car } from "../models/car";
 
 const defaultFilters: Filters = {
     manufacturer: "",
+    model: "",
+    fuelType: "",
+    gearbox: "",
+    yearMin: "",
+    yearMax: "",
+    priceMin: "",
+    priceMax: "",
 }
 
 export function FiltersProvider({ children }: PropsWithChildren) {
     const [filters, setFilters] = useState<Filters>(defaultFilters)
 
-    const [page, setPage] = useState<number>()
-    const [limit, setLimit] = useState<number>()
+    const [page, setPage] = useState<number | undefined>(1)
+    const [limit, setLimit] = useState<number | undefined>(25)
     const [sort, setSort] = useState<keyof Car | undefined>()
     const [order, setOrder] = useState<SortOrder>('asc')
 
