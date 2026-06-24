@@ -12,7 +12,7 @@ export function Content() {
 
     const filteredCarsList = carsList.filter((car) => {
         return filters.manufacturer === "" ||
-            car.manufacturer.includes(filters.manufacturer)
+            car.manufacturer.toLowerCase().includes(filters.manufacturer.toLowerCase())
     })
 
     return (

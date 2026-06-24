@@ -1,6 +1,8 @@
+import { useFilters } from "../../hooks/useFilters"
 import type { Car } from "../../models/car";
-import './SortingPanel.css'
-import SortIcon from '../../assets/sort.svg?react'
+import { Paper, FormControl, InputLabel, Select, MenuItem, IconButton, } from "@mui/material"
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const SORT_FIELDS: { value: keyof Car | "", label: string }[] = [
     { value: "", label: "Default" },
@@ -15,55 +17,54 @@ const SORT_FIELDS: { value: keyof Car | "", label: string }[] = [
 const PAGE_SIZES = [5, 10, 20, 50]
 
 export function SortingPanel() {
-
-    const order: string = "asc"
+    const { sort, setSort, order, setOrder, limit, setLimit, setPage } = useFilters()
 
     return (
-        <div className="SortingPanel">
-            {/* <label className="SortingPanel__field">
-                <span className="SortingPanel__label">Sort by</span>
-                <div className="SortingPanel__select">
-                    <select
-                        value={""}
-                        onChange={(e) => {}}
-                    >
-                        {SORT_FIELDS.map((field) => (
-                            <option key={field.value} value={field.value}>
-                                {field.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </label>
+        <Paper sx={{ p: 2, mb: 2, display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+            <FormControl size="small" sx={{ minWidth: 180 }}>
+                <InputLabel>Sort by</InputLabel>
+                <Select
+                    value={sort ?? ""}
+                    label="Sort by"
+                    onChange={(e) => {
+                        const val = e.target.value as keyof Car | ""
+                        setSort(val === "" ? undefined : val)
+                    }}
+                >
+                    {SORT_FIELDS.map((field) => (
+                        <MenuItem key={field.value} value={field.value}>
+                            {field.label}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
 
-            <button
-                type="button"
-                className="SortingPanel__order"
-                onClick={() => {}}
-                disabled={false}
-                aria-label={order === "asc" ? "Sort ascending" : "Sort descending"}
-                title={order === "asc" ? "Ascending" : "Descending"}
+            <IconButton
+                onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
+                disabled={!sort}
+                color="primary"
             >
-                <SortIcon
-                    className={`SortingPanel__orderIcon${order === "desc" ? " SortingPanel__orderIcon--desc" : ""}`}
-                />
-            </button>
+                {order === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+            </IconButton>
 
-            <label className="SortingPanel__field">
-                <span className="SortingPanel__label">Per page</span>
-                <div className="SortingPanel__select">
-                    <select
-                        value={0}
-                        onChange={(e) => {}}
-                    >
-                        {PAGE_SIZES.map((size) => (
-                            <option key={size} value={size}>
-                                {size}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </label> */}
-        </div>
+            <FormControl size="small" sx={{ minWidth: 120 }}>
+                <InputLabel>Per page</InputLabel>
+                <Select
+                    value={limit ?? ""}
+                    label="Per page"
+                    onChange={(e) => {
+                        const val = Number(e.target.value)
+                        setLimit(val || undefined)
+                        setPage(1)
+                    }}
+                >
+                    {PAGE_SIZES.map((size) => (
+                        <MenuItem key={size} value={size}>
+                            {size}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+        </Paper>
     )
 }

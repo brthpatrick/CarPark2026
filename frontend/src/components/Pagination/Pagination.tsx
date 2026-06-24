@@ -1,39 +1,22 @@
-import './Pagination.css'
+import { Pagination as MuiPagination, Box } from "@mui/material"
+import { useFilters } from "../../hooks/useFilters"
+import { useCarsList } from "../../hooks/useCarsList"
 
 export function Pagination() {
+    const { page, setPage, limit } = useFilters()
+    const { totalPages } = useCarsList()
 
-    const pages = [1, 2, 3, 4, 5]
+    if (!limit) return null
 
     return (
-        <div className="Pagination">
-            {/* <button
-                type="button"
-                className="Pagination__button"
-                onClick={() => {}}
-                disabled={true}
-            >
-                Prev
-            </button>
-
-            {pages.map((p) => (
-                <button
-                    key={p}
-                    type="button"
-                    className={`Pagination__button${p === 1 ? ' Pagination__button--active' : ''}`}
-                    onClick={() => {}}
-                >
-                    {p}
-                </button>
-            ))}
-
-            <button
-                type="button"
-                className="Pagination__button"
-                onClick={() => {}}
-                disabled={true}
-            >
-                Next
-            </button> */}
-        </div>
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+            <MuiPagination
+                count={totalPages}
+                page={page ?? 1}
+                onChange={(_e, value) => setPage(value)}
+                color="primary"
+                shape="rounded"
+            />
+        </Box>
     )
 }

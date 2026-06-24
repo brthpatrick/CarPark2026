@@ -3,6 +3,8 @@ import { useState } from "react";
 import type { PropsWithChildren } from "react";
 import type { Filters, FiltersContextType } from "./FiltersContext";
 import { FiltersContext } from "./FiltersContext";
+import type { SortOrder } from "../data/car";
+import type { Car } from "../models/car";
 
 const defaultFilters: Filters = {
     manufacturer: "",
@@ -13,6 +15,9 @@ export function FiltersProvider({ children }: PropsWithChildren) {
 
     const [page, setPage] = useState<number>()
     const [limit, setLimit] = useState<number>()
+    const [sort, setSort] = useState<keyof Car | undefined>()
+    const [order, setOrder] = useState<SortOrder>('asc')
+
 
     const updateFilter = (field: keyof Filters, value: string) => {
         setFilters(prev => ({ ...prev, [field]: value }))
@@ -29,10 +34,10 @@ export function FiltersProvider({ children }: PropsWithChildren) {
         setPage,
         limit,
         setLimit,
-        // sort,
-        // setSort,
-        // order,
-        // setOrder,
+        sort,
+        setSort,
+        order,
+        setOrder,
         showFavoritesOnly: false, 
         handleFavoritesToggle: () => {}
     }
