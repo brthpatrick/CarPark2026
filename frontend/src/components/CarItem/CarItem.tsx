@@ -4,7 +4,9 @@ import { IMG_BASE_URL } from "../../data/constants"
 import { Card, CardMedia, CardContent, Typography, Button, Chip, Box } from "@mui/material"
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-
+import { useBasket } from "../../hooks/useBasket"
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart'
 
 type Props = {
     car: Car
@@ -13,6 +15,7 @@ type Props = {
 export function CarItem({ car }: Props) {
     const equipments = car.equipment.split(",")
     const { toggleFavorite, isFavorite } = useFavorites()
+    const { addToBasket, removeFromBasket, isInBasket } = useBasket()
 
     return (
        <Card sx={{ display: 'flex', mb: 2, overflow: 'hidden' }}>
@@ -54,6 +57,15 @@ export function CarItem({ car }: Props) {
                         onClick={() => toggleFavorite(car)}
                     >
                         {isFavorite(car) ? "Remove" : "Favorite"}
+                    </Button>
+                    <Button
+                        variant={isInBasket(car) ? "contained" : "outlined"}
+                        color="primary"
+                        size="small"
+                        startIcon={isInBasket(car) ? <RemoveShoppingCartIcon /> : <ShoppingCartIcon />}
+                        onClick={() => isInBasket(car) ? removeFromBasket(car.vin) : addToBasket(car)}
+                        >
+                        {isInBasket(car) ? "Remove" : "Add to cart"}
                     </Button>
                 </Box>
             </CardContent>
