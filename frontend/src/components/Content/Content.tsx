@@ -1,5 +1,6 @@
 import { CarItem } from "../CarItem/CarItem"
 import { useFilters } from "../../hooks/useFilters"
+import { useFavorites } from "../../hooks/useFavorites"
 import { FiltersPanel } from "../FiltersPanel/FiltersPanel"
 import { SortingPanel } from "../SortingPanel/SortingPanel"
 import { useCarsList } from "../../hooks/useCarsList"
@@ -7,10 +8,14 @@ import { Pagination } from "../Pagination/Pagination"
 import { Box, Typography, CircularProgress } from "@mui/material"
 
 export function Content() {
-    const { filters } = useFilters()
+    const { filters, showFavoritesOnly } = useFilters()
     const { carsList, isLoading, isError } = useCarsList()
+    const { isFavorite } = useFavorites()
 
     const filteredCarsList = carsList.filter((car) => {
+    if (showFavoritesOnly && !isFavorite(car)){
+        return false
+    }
     if (filters.manufacturer !== "" &&
         !car.manufacturer.toLowerCase().includes(filters.manufacturer.toLowerCase())) {
         return false

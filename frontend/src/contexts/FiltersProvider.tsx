@@ -26,6 +26,8 @@ export function FiltersProvider({ children }: PropsWithChildren) {
     const [order, setOrder] = useState<SortOrder>('asc')
 
 
+    const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
+
     const updateFilter = (field: keyof Filters, value: string) => {
         setFilters(prev => ({ ...prev, [field]: value }))
     }
@@ -45,8 +47,8 @@ export function FiltersProvider({ children }: PropsWithChildren) {
         setSort,
         order,
         setOrder,
-        showFavoritesOnly: false, 
-        handleFavoritesToggle: () => {}
+        showFavoritesOnly, 
+        handleFavoritesToggle: (checked: boolean) => setShowFavoritesOnly(checked),
     }
 
     return (

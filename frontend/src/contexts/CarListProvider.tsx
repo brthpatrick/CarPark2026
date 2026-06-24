@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
 import { getCars } from "../data/car";
@@ -10,7 +9,7 @@ import { useFilters } from "../hooks/useFilters";
 
 export function CarListProvider({ children }: PropsWithChildren) {
 
-    const { filters, page, limit, sort, order } = useFilters()
+    const { filters, page, limit, sort, order, showFavoritesOnly } = useFilters()
 
     const [carsList, setCarsList] = useState<Car[]>([])
 
@@ -30,8 +29,8 @@ export function CarListProvider({ children }: PropsWithChildren) {
                     fuelType: filters.fuelType,
                     gearbox: filters.gearbox,
                 },
-                page,
-                limit,
+                page: showFavoritesOnly ? undefined : page,
+                limit: showFavoritesOnly ? undefined : limit,
                 sort,
                 order,
             }
