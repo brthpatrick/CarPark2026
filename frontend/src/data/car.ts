@@ -16,8 +16,8 @@ export type GetCarsParams = {
 export type Paginated<T> = {
     items: T[]
     total: number
-    page: number
-    limit: number
+    page: number | undefined
+    limit: number | undefined
     totalPages: number
 }
 
@@ -58,7 +58,7 @@ export async function getCars(params: GetCarsParams = {}): Promise<Paginated<Car
 
     const items = (await res.json()) as Car[]
     const total = Number(res.headers.get('X-Total-Count') ?? items.length)
-    const totalPages = limit > 0 ? Math.max(1, Math.ceil(total / limit)) : 1
+    const totalPages = limit && limit > 0 ? Math.max(1, Math.ceil(total / limit)) : 1
 
     return { items, total, page, limit, totalPages }
 }
