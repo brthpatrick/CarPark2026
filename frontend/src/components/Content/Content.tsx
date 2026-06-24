@@ -1,43 +1,46 @@
-import "./Content.css"
 import { CarItem } from "../CarItem/CarItem"
 import { useFilters } from "../../hooks/useFilters"
 import { FiltersPanel } from "../FiltersPanel/FiltersPanel"
 import { SortingPanel } from "../SortingPanel/SortingPanel"
 import { useCarsList } from "../../hooks/useCarsList"
 import { Pagination } from "../Pagination/Pagination"
+import { Box, Typography, CircularProgress } from "@mui/material"
 
 export function Content() {
     const { filters } = useFilters()
     const { carsList, isLoading, isError } = useCarsList()
 
     const filteredCarsList = carsList.filter((car) => {
-        const filteredManufacturer = filters.manufacturer === "" ||
+        return filters.manufacturer === "" ||
             car.manufacturer.includes(filters.manufacturer)
-
-        return filteredManufacturer
     })
 
     return (
-        <div className="Content">
+        <Box sx={{ py: 3 }}>
             <FiltersPanel />
-
             <SortingPanel />
 
-            {isLoading && <p>Data is loading...</p>}
-            {isError && <p>Something went wrong</p>}
+            {isLoading && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                    <CircularProgress />
+                </Box>
+            )}
+
+            {isError && (
+                <Typography color="error" sx={{ textAlign: 'center', py: 4 }}>
+                    Something went wrong
+                </Typography>
+            )}
 
             {!isLoading && !isError && (
-                <div className="CarList">
-
+                <Box>
                     <Pagination />
-
                     {filteredCarsList.map((car) => (
                         <CarItem key={car.vin} car={car} />
                     ))}
-
                     <Pagination />
-                </div>
+                </Box>
             )}
-        </div>
+        </Box>
     )
 }

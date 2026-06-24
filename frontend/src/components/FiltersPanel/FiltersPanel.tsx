@@ -1,26 +1,33 @@
-import { useFilters } from "../../hooks/useFilters"
-import "./FiltersPanel.css"
+import { useFilters } from '../../hooks/useFilters';
+import { TextField, FormControlLabel, Checkbox, Paper, Typography } from '@mui/material';
 
-export function FiltersPanel() {
-    const { filters, updateFilter, showFavoritesOnly, handleFavoritesToggle } = useFilters()
+
+export function FiltersPanel () {
+    const { filters, updateFilter, showFavoritesOnly, handleFavoritesToggle } = useFilters();
 
     return (
-        <div className="filtersPanel">
-            <h3>Filters Cars</h3>
-            <input
-                type="text"
-                placeholder="Manufacturer"
+        <Paper sx={{ p: 2, mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+                Filters
+            </Typography>
+            <TextField
+                label="Manufacturer"
+                variant="outlined"
+                size="small"
+                fullWidth
                 value={filters.manufacturer}
                 onChange={(e) => updateFilter("manufacturer", e.target.value)}
+                sx={{ mb: 2 }}
             />
-            <label className="checkbox">
-                <input
-                    type="checkbox"
-                    checked={showFavoritesOnly}
-                    onChange={(e) => handleFavoritesToggle(e.target.checked)}
-                />
-                Show only favorites
-            </label>
-        </div>
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={showFavoritesOnly}
+                        onChange={(e) => handleFavoritesToggle(e.target.checked)}
+                    />
+                }
+                label="Show only favorites"
+            />
+        </Paper>
     )
 }

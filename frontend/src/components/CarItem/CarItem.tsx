@@ -1,7 +1,10 @@
 import type { Car } from "../../models/car"
-import "./CarItem.css"
 import { useFavorites } from "../../hooks/useFavorites"
 import { IMG_BASE_URL } from "../../data/constants"
+import { Card, CardMedia, CardContent, Typography, Button, Chip, Box } from "@mui/material"
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+
 
 type Props = {
     car: Car
@@ -12,38 +15,48 @@ export function CarItem({ car }: Props) {
     const { toggleFavorite, isFavorite } = useFavorites()
 
     return (
-        <div className="carItem">
-            <div className="imageContainer">
-                <img src={`${IMG_BASE_URL}/${car.image}`} className="carImage" />
-            </div>
-            <div className="details">
-                <div className="row"><div className="label">Manufacturer: </div> {car.manufacturer}</div>
-                <div className="row"><div className="label">Model: </div>{car.model}</div>
-                <div className="row"><div className="label">Construction Year: </div>{car.constructionYear}</div>
-                <div className="row"><div className="label">Fuel type: </div>{car.fuelType}</div>
-                <div className="row"><div className="label">Mileage: </div>{car.mileage} km</div>
-                <div className="row"><div className="label">Engine size: </div>{car.engineSize} cm3</div>
-                <div className="row"><div className="label">Power: </div>{car.power} CP</div>
-                <br />
-                <div className="row">
-                    <div className="label">
-                        Equipments:
-                    </div>
-                </div>
-                <div className="row">
-                    <ul className="list">
-                        {equipments.slice(0, 9).map((equipment, index) => {
-                            return <li key={index}>{equipment}</li>
-                        })}
-                    </ul>
-                </div>
-            </div>
-            <div className="price">Price: {car.price} EUR</div>
-            <div className="row">
-                <button className="button" onClick={() => toggleFavorite(car)}>
-                    {isFavorite(car) ? "Remove from favorites" : "Add to favorites"}
-                </button>
-            </div>
-        </div>
+       <Card sx={{ display: 'flex', mb: 2, overflow: 'hidden' }}>
+            <CardMedia
+                component="img"
+                sx={{ width: 280, objectFit: 'cover' }}
+                image={`${IMG_BASE_URL}/${car.image}`}
+                alt={`${car.manufacturer} ${car.model}`}
+            />
+            <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 700 }}>
+                    {car.manufacturer} {car.model}
+                </Typography>
+
+                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0.5, my:1 }}>
+                    <Typography variant="body2"><b>Year:</b> {car.constructionYear}</Typography>
+                    <Typography variant="body2"><b>Fuel:</b> {car.fuelType}</Typography>
+                    <Typography variant="body2"><b>Mileage:</b> {car.mileage} km</Typography>
+                    <Typography variant="body2"><b>Engine:</b> {car.engineSize} cm3</Typography>
+                    <Typography variant="body2"><b>Power:</b> {car.power} CP</Typography>
+                    <Typography variant="body2"><b>Gearbox:</b> {car.gearbox}</Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
+                    {equipments.slice(0, 6).map((eq, i) =>(
+                        <Chip key={i} label={eq.trim()} size="small" />
+                    ))}
+                </Box>
+
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Typography variant="h6" color="success.main" sx={{ fontWeight: 700 }}>
+                        {car.price.toLocaleString()} EUR 
+                    </Typography>
+                    <Button
+                        variant={isFavorite(car) ? "contained" : "outlined"}
+                        color="error"
+                        size="small"
+                        startIcon={isFavorite(car) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        onClick={() => toggleFavorite(car)}
+                    >
+                        {isFavorite(car) ? "Remove" : "Favorite"}
+                    </Button>
+                </Box>
+            </CardContent>
+        </Card>
     )
 }
