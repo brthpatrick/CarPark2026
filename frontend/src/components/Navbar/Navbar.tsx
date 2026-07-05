@@ -4,6 +4,7 @@ import LightModeIcon from "@mui/icons-material/LightMode"
 import { AppBar, Toolbar, Typography, Button, Box, IconButton } from "@mui/material"
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import AdminPanelSettingsIcon  from "@mui/icons-material/AdminPanelSettings"
 import { Link } from "react-router-dom"
 
 export function Navbar() {
@@ -23,7 +24,10 @@ export function Navbar() {
                         Cars
                     </Button>
                     <Button color="inherit" component={Link} to="/basket" startIcon={<ShoppingCartIcon />}>
-                        Basket
+                        Cart
+                    </Button>
+                    <Button color="inherit" component={Link} to="/admin" startIcon={<AdminPanelSettingsIcon />}>
+                        Admin
                     </Button>
                 </Box>
             </Toolbar>

@@ -2,6 +2,7 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Content } from './components/Content/Content'
 import { Navbar } from './components/Navbar/Navbar'
+import { AdminPage} from './components/AdminPage/AdminPage'
 import { FiltersProvider } from './contexts/FiltersProvider'
 import { CarListProvider } from './contexts/CarListProvider'
 import { FavoritesProvider } from './contexts/FavoritesProvider'
@@ -19,6 +20,7 @@ export function App() {
                             <Routes>
                                 <Route path="/" element={<Content />} />
                                 <Route path="/basket" element={<BasketPage />} />
+                                <Route path="/admin" element={<AdminPage />} />
                             </Routes>
                         </CarListProvider>
                     </BasketProvider>
