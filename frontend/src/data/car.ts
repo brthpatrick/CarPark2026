@@ -116,3 +116,30 @@ export async function deleteCar(vin: string): Promise<void> {
         throw new Error(`Delete failed: ${res.status} ${res.statusText}`)
     }
 }
+
+export type SearchCarsParams = GetCarsParams & {
+    yearMin?: string; yearMax?: string
+    priceMin?: string; priceMax?: string
+}
+
+export async function searchCars(params: SearchCarsParams = {}): Promise<Paginated<Car>> {
+    const { sort, order = 'asc', page, limit, filters = {}, yearMin, yearMax, priceMin, priceMax } = params
+    const query = new URLSearchParams()
+
+    if (filters.manufacturer) query.set('manufacturer', filters.manufacturer)
+    if (filters.model) query.set('model', filters.model)
+    if (filters.fuelType) query.set('fuelType', filters.fuelType)
+    if (filters.gearbox) query.set('gearbox', filters.gearbox)
+    if (yearMin) query.set('yearMin', yearMin)
+    if (yearMax) query.set('yearMax', yearMax)
+    if (priceMin) query.set('priceMin', priceMin)
+    if (priceMax) query.set('priceMax', priceMax)
+    if (sort) { query.set('_sort', sort); query.set('_order', order) }
+    if (page !== undefined) query.set('_page', String(page))
+    if (limit !== undefined) query.set('_limit', String(limit))
+
+    const res = await fetch(`${API_BASE_URL}/cars/search?${query.toString()}`)
+    if (!res.ok) throw new Error(`Request failed: ${res.status} ${res.statusText}`)
+    return res.json()
+}
+

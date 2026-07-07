@@ -55,6 +55,33 @@ server.post('/api/images', upload.single('image'), (req, res) => {
   })
 })
 
+server.get('/api/cars/search', (req, res) => {
+    let cars = router.db.get('cars').value()
+    const { manufacturer, model, fuelType, gearbox, priceMin, priceMax, yearMin, yearMax, _sort, _order, _page, _limit } = req.query
+
+    if (manufacturer) cars = cars.filter(c => c.manufacturer.toLowerCase().includes(manufacturer.toLowerCase()))
+    if (model) cars = cars.filter(c => c.model.toLowerCase().includes(model.toLowerCase()))
+    if (fuelType) cars = cars.filter(c => c.fuelType.toLowerCase().includes(fuelType.toLowerCase()))
+    if (gearbox) cars = cars.filter(c => c.gearbox.toLowerCase().includes(gearbox.toLowerCase()))
+    if (priceMin) cars = cars.filter(c => c.price >= Number(priceMin))
+    if (priceMax) cars = cars.filter(c => c.price <= Number(priceMax))
+    if (yearMin) cars = cars.filter(c => c.constructionYear >= Number(yearMin))
+    if (yearMax) cars = cars.filter(c => c.constructionYear <= Number(yearMax))
+
+    if (_sort) {
+        const ord = _order === 'desc' ? -1 : 1
+        cars = [...cars].sort((a, b) => (a[_sort] < b[_sort] ? -1 : a[_sort] > b[_sort] ? 1 : 0) * ord)
+    }
+
+    const total = cars.length
+    const page = _page ? Number(_page) : undefined
+    const limit = _limit ? Number(_limit) : undefined
+    const items = page && limit ? cars.slice((page - 1) * limit, page * limit) : cars
+    const totalPages = limit && limit > 0 ? Math.max(1, Math.ceil(total / limit)) : 1
+
+    res.json({ items, total, page, limit, totalPages })
+})
+
 server.use(
   jsonServer.rewriter({
     '/api/*': '/$1',

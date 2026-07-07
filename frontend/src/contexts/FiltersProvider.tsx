@@ -32,7 +32,10 @@ export function FiltersProvider({ children }: PropsWithChildren) {
         setFilters(prev => ({ ...prev, [field]: value }))
     }
 
-    const resetFilters = () => setFilters(defaultFilters)
+    const resetFilters = () => {
+        setFilters(defaultFilters)
+        setPage(1)
+    }
     
     const context: FiltersContextType = {
         filters,

@@ -1,20 +1,15 @@
 import { useEffect, useState } from "react";
 import type { PropsWithChildren } from "react";
-import { getCars } from "../data/car";
-import type { GetCarsParams } from "../data/car";
+import { searchCars } from "../data/car";
 import type { Car } from "../models/car";
 import { CarListContext } from "./CarListContext";
 import { useFilters } from "../hooks/useFilters";
 
-
 export function CarListProvider({ children }: PropsWithChildren) {
-
     const { filters, page, limit, sort, order, showFavoritesOnly } = useFilters()
 
     const [carsList, setCarsList] = useState<Car[]>([])
-
     const [totalPages, setTotalPages] = useState(1)
-
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
@@ -22,20 +17,22 @@ export function CarListProvider({ children }: PropsWithChildren) {
         setIsLoading(true)
         setIsError(false)
         try {
-            const params: GetCarsParams = {
+            const result = await searchCars({
                 filters: {
                     manufacturer: filters.manufacturer,
                     model: filters.model,
                     fuelType: filters.fuelType,
                     gearbox: filters.gearbox,
                 },
+                yearMin: filters.yearMin,
+                yearMax: filters.yearMax,
+                priceMin: filters.priceMin,
+                priceMax: filters.priceMax,
                 page: showFavoritesOnly ? undefined : page,
                 limit: showFavoritesOnly ? undefined : limit,
                 sort,
                 order,
-            }
-
-            const result = await getCars(params)
+            })
             setCarsList(result.items)
             setTotalPages(result.totalPages)
         } catch {
@@ -49,15 +46,8 @@ export function CarListProvider({ children }: PropsWithChildren) {
         getCarList()
     }, [filters, page, limit, sort, order])
 
-    const context = {
-        carsList,
-        totalPages,
-        isError,
-        isLoading
-    }
-
     return (
-        <CarListContext.Provider value={context}>
+        <CarListContext.Provider value={{ carsList, totalPages, isError, isLoading }}>
             {children}
         </CarListContext.Provider>
     )
