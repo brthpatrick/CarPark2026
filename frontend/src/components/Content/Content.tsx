@@ -4,6 +4,7 @@ import { useFavorites } from "../../hooks/useFavorites"
 import { FiltersPanel } from "../FiltersPanel/FiltersPanel"
 import { SortingPanel } from "../SortingPanel/SortingPanel"
 import { useCarsList } from "../../hooks/useCarsList"
+import { PromoBanner } from "../PromoBanner/PromoBanner"
 import { Pagination } from "../Pagination/Pagination"
 import { Box, Typography, CircularProgress } from "@mui/material"
 
@@ -55,6 +56,7 @@ export function Content() {
 
      return (
         <Box sx={{ py: 3 }}>
+            <PromoBanner />
             <FiltersPanel />
             <SortingPanel />
 
