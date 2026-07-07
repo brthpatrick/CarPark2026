@@ -21,7 +21,7 @@ export function BasketPage() {
             <Box sx={{ py: 4, textAlign: 'center' }}>
                 <RemoveShoppingCartIcon sx={{ fontSize: 64, color: 'grey.400' }} />
                 <Typography variant="h5" sx={{ mt: 2 }}>
-                    Your basket is empty
+                    Your cart is empty
                 </Typography>
             </Box>
         )
@@ -30,7 +30,7 @@ export function BasketPage() {
     return (
         <Box sx={{ py: 3 }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
-                Basket ({basketItems.length} {basketItems.length === 1 ? 'item' : 'items'})
+                Cart ({basketItems.length} {basketItems.length === 1 ? 'item' : 'items'})
             </Typography>
 
             {basketItems.map((car) => (
@@ -75,7 +75,7 @@ export function BasketPage() {
                     Total: {basketTotal.toLocaleString()} EUR
                 </Typography>
                 <Button variant="contained" color="error" onClick={clearBasket}>
-                    Clear basket
+                    Clear Cart
                 </Button>
             </Paper>
         </Box>
