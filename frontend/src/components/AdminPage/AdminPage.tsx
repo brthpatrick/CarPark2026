@@ -25,7 +25,7 @@ export function AdminPage() {
     const [uploading, setUploading] = useState(false)
 
     const loadCars = async () => {
-        const result = await getCars({ limit: 100 })
+        const result = await getCars({ limit: 500 })
         setCars(result.items)
     }
 
@@ -155,7 +155,9 @@ export function AdminPage() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
-                    <Button variant="contained" onClick={handleSave}>Save</Button>
+                    <Button variant="contained" onClick={handleSave} disabled={!form.image}>
+                        Save
+                    </Button>
                 </DialogActions>
             </Dialog>
         </Box>

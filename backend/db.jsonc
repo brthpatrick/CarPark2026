@@ -4004,6 +4004,21 @@
       "price": 34260,
       "description": "Available for VAT-paying entities. Delivery within 10 days. Import fees not included. Pictures for reference only. All colors available. 12-month warranty standard, extendable up to 5 years. Financing and leasing options on request. Buy-back and insurance services available.",
       "equipment": "Apple Carplay, Android Auto, Bluetooth, Radio, Hands-free system, USB port, Wireless charging, Navigation system, Audio system, Touch screen monitor, Voice control, Internet connection, Climatronic 2 zones, Leather upholstery, Rear air conditioning, Driver seat heating, Passenger seat heating, Front sports seats, Armrest (front), Armrest (rear), Leather steering wheel, Steering wheel with controls, Multifunctional steering wheel, Rain sensor, Heated windshield, Electric windows, Privacy glass, LED headlights, Parking sensors, Speed limiter, Brake assist, Traction control, LED taillights, Start/Stop system, Wheel pressure sensors, Power steering, ABS, ESP, Driver airbag, Passenger airbag, Isofix"
+    },
+    {
+      "image": "vw-passat.png",
+      "manufacturer": "Volkswagen",
+      "model": "Passat",
+      "constructionYear": 2015,
+      "mileage": 95000,
+      "engineSize": 1984,
+      "power": 220,
+      "gearbox": "Automata",
+      "fuelType": "Benzina",
+      "price": 18900,
+      "description": "Mașina arată foarte bine estetic, atât la exterior, cât și la interior, și este o mașină confortabilă, puternică și foarte plăcută la drum lung. Culoare albastru metalizat, aspect elegant, întreținută cu grijă. Tara de origine este Romania.",
+      "equipment": "echipare Highline, cutie automată DSG, climatronic, moduri de condus, tapiserie Alcantara, geamuri electrice față/spate, senzori parcare față/spate",
+      "vin": "8204ee9f-20b7-4fff-b630-feefc1ada9d1"
     }
   ],
   "basket": [],

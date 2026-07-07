@@ -57,7 +57,6 @@ server.post('/api/images', upload.single('image'), (req, res) => {
 
 server.use(
   jsonServer.rewriter({
-    '/api/images/:file': '/api/images/:file',
     '/api/*': '/$1',
   })
 )

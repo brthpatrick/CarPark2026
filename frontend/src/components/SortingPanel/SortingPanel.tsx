@@ -14,7 +14,7 @@ const SORT_FIELDS: { value: keyof Car | "", label: string }[] = [
     { value: "power", label: "Power" },
 ]
 
-const PAGE_SIZES = [5, 10, 20, 50]
+const PAGE_SIZES = [5, 10, 20, 25, 50]
 
 export function SortingPanel() {
     const { sort, setSort, order, setOrder, limit, setLimit, setPage } = useFilters()
