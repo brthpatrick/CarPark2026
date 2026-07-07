@@ -4,12 +4,14 @@ import { uploadImage } from "../../data/images"
 import { getCars, deleteCar, createCar, updateCar } from "../../data/car"
 import {
     Box, Typography, Button, Table, TableBody, TableCell,
-    TableContainer, TableHead, TableRow, Paper, IconButton,
+    TableContainer, TableHead, TableRow, Pagination, Paper, IconButton,
     Dialog, DialogTitle, DialogContent, DialogActions, TextField
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import AddIcon from "@mui/icons-material/Add"
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"
 
 const emptyForm: Omit<Car, 'vin'> = {
     image: '', manufacturer: '', model: '', constructionYear: 2020,
@@ -23,13 +25,19 @@ export function AdminPage() {
     const [editingCar, setEditingCar] = useState<Car | null>(null)
     const [form, setForm] = useState<Omit<Car, 'vin'>>(emptyForm)
     const [uploading, setUploading] = useState(false)
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+    const LIMIT = 25
+    const [sort, setSort] = useState<keyof Car | undefined>(undefined)
+    const [order, setOrder] = useState<'asc' | 'desc'>('asc')
 
     const loadCars = async () => {
-        const result = await getCars({ limit: 500 })
+        const result = await getCars({ page, limit: LIMIT, sort, order })
         setCars(result.items)
+        setTotalPages(result.totalPages)
     }
 
-    useEffect(() => { loadCars() }, [])
+    useEffect(() => { loadCars() }, [page, sort, order])
 
     const handleEdit = (car: Car) => {
         setEditingCar(car)
@@ -79,6 +87,15 @@ export function AdminPage() {
 
     }
 
+    const handleSort = (field: keyof Car) => {
+        if (sort === field) {
+            setOrder(prev => prev === 'asc' ? 'desc' : 'asc')
+        } else {
+            setSort(field)
+            setOrder('asc')
+        }
+    }
+
     return (
         <Box sx={{ py: 3 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -92,11 +109,41 @@ export function AdminPage() {
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell><b>Manufacturer</b></TableCell>
-                            <TableCell><b>Model</b></TableCell>
-                            <TableCell><b>Year</b></TableCell>
-                            <TableCell><b>Fuel</b></TableCell>
-                            <TableCell><b>Price</b></TableCell>
+                            <TableCell
+                                onClick={() => handleSort('manufacturer')}
+                                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                            >
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <b>Manufacturer</b>
+                                    {sort === 'manufacturer' && (
+                                        order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />
+                                    )}
+                                </Box>
+                            </TableCell>
+                            <TableCell onClick={() => handleSort('model')} sx={{ cursor: 'pointer', userSelect: 'none' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <b>Model</b>
+                                    {sort === 'model' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
+                                </Box>
+                            </TableCell>
+                            <TableCell onClick={() => handleSort('constructionYear')} sx={{ cursor: 'pointer', userSelect: 'none' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <b>Year</b>
+                                    {sort === 'constructionYear' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
+                                </Box>
+                            </TableCell>
+                            <TableCell onClick={() => handleSort('fuelType')} sx={{ cursor: 'pointer', userSelect: 'none' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <b>Fuel</b>
+                                    {sort === 'fuelType' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
+                                </Box>
+                            </TableCell>
+                            <TableCell onClick={() => handleSort('price')} sx={{ cursor: 'pointer', userSelect: 'none' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                                    <b>Price</b>
+                                    {sort === 'price' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
+                                </Box>
+                            </TableCell>
                             <TableCell><b>Actions</b></TableCell>
                         </TableRow>
                     </TableHead>
@@ -121,6 +168,16 @@ export function AdminPage() {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Pagination
+                    count={totalPages}
+                    page={page}
+                    onChange={(_e, value) => setPage(value)}
+                    color="primary"
+                    shape="rounded"
+                />
+            </Box>
 
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
                 <DialogTitle>{editingCar ? 'Edit Car' : 'Add New Car'}</DialogTitle>
