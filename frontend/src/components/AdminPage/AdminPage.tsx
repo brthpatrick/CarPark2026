@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import type { Car } from "../../models/car"
+import { uploadImage } from "../../data/images"
 import { getCars, deleteCar, createCar, updateCar } from "../../data/car"
 import {
     Box, Typography, Button, Table, TableBody, TableCell,
@@ -21,6 +22,7 @@ export function AdminPage() {
     const [dialogOpen, setDialogOpen] = useState(false)
     const [editingCar, setEditingCar] = useState<Car | null>(null)
     const [form, setForm] = useState<Omit<Car, 'vin'>>(emptyForm)
+    const [uploading, setUploading] = useState(false)
 
     const loadCars = async () => {
         const result = await getCars({ limit: 100 })
@@ -62,6 +64,19 @@ export function AdminPage() {
 
     const updateForm = (field: keyof typeof form, value: string | number) => {
         setForm(prev => ({ ...prev, [field]: value }))
+    }
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+        setUploading(true)
+        try {
+            const result = await uploadImage(file)
+            updateForm('image', result.fileName)
+        } finally {
+            setUploading(false)
+        }
+
     }
 
     return (
@@ -119,7 +134,22 @@ export function AdminPage() {
                     <TextField label="Gearbox" size="small" value={form.gearbox} onChange={(e) => updateForm('gearbox', e.target.value)} />
                     <TextField label="Fuel type" size="small" value={form.fuelType} onChange={(e) => updateForm('fuelType', e.target.value)} />
                     <TextField label="Price (EUR)" size="small" type="number" value={form.price} onChange={(e) => updateForm('price', Number(e.target.value))} />
-                    <TextField label="Image filename" size="small" value={form.image} onChange={(e) => updateForm('image', e.target.value)} />
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            component="label"
+                            disabled={uploading}
+                            size="small"
+                        >
+                            {uploading ? 'Uploading...' : "Upload Image"}
+                            <input type="file" accept="image/*" hidden onChange={handleImageUpload} />
+                        </Button>
+                        {form.image && (
+                            <Typography variant="body2" sx={{ mt: 1 }}>
+                                Selected: {form.image}
+                            </Typography>
+                        )}
+                    </Box>
                     <TextField label="Description" size="small" multiline rows={3} value={form.description} onChange={(e) => updateForm('description', e.target.value)} />
                     <TextField label="Equipment (comma separated)" size="small" multiline rows={2} value={form.equipment} onChange={(e) => updateForm('equipment', e.target.value)} />
                 </DialogContent>
