@@ -1,21 +1,26 @@
 import { useFilters } from '../../hooks/useFilters';
 import {
-    TextField, FormControlLabel, Checkbox, Typography,
+    TextField, FormControlLabel, Checkbox, Chip, Typography,
     Box, FormControl, InputLabel, Select, MenuItem, Button,
     Accordion, AccordionSummary, AccordionDetails
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useCarsList } from '../../hooks/useCarsList';
 
 const FUEL_TYPES = ['Petrol', 'Diesel', 'Electric', 'Hybrid']
 const GEARBOX_TYPES = ['Manual', 'Automatic']
 
 export function FiltersPanel() {
     const { filters, updateFilter, resetFilters, showFavoritesOnly, handleFavoritesToggle } = useFilters();
+    const { total } = useCarsList();
 
     return (
         <Accordion defaultExpanded sx={{ mb: 2 }}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography variant="h6">Filters</Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Typography variant="h6">Filters</Typography>
+                    <Chip label={total} size="small" color="primary" />
+                </Box>
             </AccordionSummary>
             <AccordionDetails>
                 <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
