@@ -56,7 +56,7 @@ export function Content() {
     })
 
     return (
-        <Box sx={{ py: 3 }}>
+        <Box sx={{ py: 3, px: 2 }}>
             <PromoBanner />
             <FiltersPanel />
             <SortingPanel />

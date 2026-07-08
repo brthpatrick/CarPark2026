@@ -28,7 +28,7 @@ export function BasketPage() {
     }
 
     return (
-        <Box sx={{ py: 3 }}>
+        <Box sx={{ py: 3, px: 2 }}>
             <Typography variant="h5" sx={{ mb: 2 }}>
                 Cart ({basketItems.length} {basketItems.length === 1 ? 'item' : 'items'})
             </Typography>

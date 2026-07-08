@@ -98,7 +98,7 @@ export function AdminPage() {
     }
 
     return (
-        <Box sx={{ py: 3 }}>
+        <Box sx={{ py: 3, px: 2 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
                 <Typography variant="h5">Admin - Car Management</Typography>
                 <Button variant="contained" startIcon={<AddIcon />} onClick={handleAdd}>
@@ -133,7 +133,7 @@ export function AdminPage() {
                                     {sort === 'constructionYear' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
                                 </Box>
                             </TableCell>
-                            <TableCell onClick={() => handleSort('fuelType')} sx={{ cursor: 'pointer', userSelect: 'none' }}>
+                            <TableCell onClick={() => handleSort('fuelType')} sx={{ cursor: 'pointer', userSelect: 'none', display: { xs: 'none', sm: 'table-cell' } }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                     <b>Fuel</b>
                                     {sort === 'fuelType' && (order === 'asc' ? <ArrowUpwardIcon fontSize="small" /> : <ArrowDownwardIcon fontSize="small" />)}
@@ -154,7 +154,7 @@ export function AdminPage() {
                                 <TableCell>{car.manufacturer}</TableCell>
                                 <TableCell>{car.model}</TableCell>
                                 <TableCell>{car.constructionYear}</TableCell>
-                                <TableCell>{car.fuelType}</TableCell>
+                                <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>{car.fuelType}</TableCell>
                                 <TableCell>{car.price.toLocaleString()} EUR</TableCell>
                                 <TableCell>
                                     <IconButton size="small" color="primary" onClick={() => handleEdit(car)}>
