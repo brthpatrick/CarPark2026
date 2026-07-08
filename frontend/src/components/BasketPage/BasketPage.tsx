@@ -34,14 +34,28 @@ export function BasketPage() {
             </Typography>
 
             {basketItems.map((car) => (
-                <Card key={car.vin} sx={{ display: 'flex', mb: 2, overflow: 'hidden' }}>
+                <Card key={car.vin} variant="outlined" sx={{
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    mb: 2, overflow: 'hidden'
+                }}>
                     <CardMedia
                         component="img"
-                        sx={{ width: 200, objectFit: 'cover' }}
+                        sx={{
+                            width: { xs: '100%', sm: 200 },
+                            height: { xs: 180, sm: 'auto' },
+                            objectFit: 'cover'
+                        }}
                         image={`${IMG_BASE_URL}/${car.image}`}
                         alt={`${car.manufacturer} ${car.model}`}
                     />
-                    <CardContent sx={{ flex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <CardContent sx={{
+                        flex: 1, display: 'flex',
+                        flexDirection: { xs: 'column', sm: 'row' },
+                        justifyContent: 'space-between',
+                        alignItems: { xs: 'flex-start', sm: 'center' },
+                        gap: 1
+                    }}>
                         <Box>
                             <Typography variant="h6" sx={{ fontWeight: 700 }}>
                                 {car.manufacturer} {car.model}
@@ -70,7 +84,13 @@ export function BasketPage() {
 
             <Divider sx={{ my: 2 }} />
 
-            <Paper sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Paper sx={{
+                p: 2, display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: 'space-between',
+                alignItems: { xs: 'flex-start', sm: 'center' },
+                gap: 2
+            }}>
                 <Typography variant="h5" sx={{ fontWeight: 700 }}>
                     Total: {basketTotal.toLocaleString()} EUR
                 </Typography>
