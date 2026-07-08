@@ -22,7 +22,7 @@ export function CarItem({ car }: Props) {
 
     return (
         <>
-            <Card sx={{ display: 'flex', mb: 2, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
+            <Card variant="outlined" sx={{ display: 'flex', mb: 2, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
                 <CardMedia
                     component="img"
                     sx={{ width: 280, objectFit: 'cover' }}
@@ -45,7 +45,7 @@ export function CarItem({ car }: Props) {
 
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 2 }}>
                         {equipments.slice(0, 6).map((eq, i) => (
-                            <Chip key={i} label={eq.trim()} size="small" />
+                            <Chip key={i} label={eq.trim()} size="small" variant="outlined" />
                         ))}
                     </Box>
 
