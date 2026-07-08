@@ -59,20 +59,38 @@ export function FiltersPanel() {
 
                     <TextField label="Year from" variant="outlined" size="small" type="number"
                         value={filters.yearMin}
-                        onChange={(e) => updateFilter('yearMin', e.target.value)}
+                        onChange={(e) => {
+                            const val = e.target.value
+                            updateFilter('yearMin', val)
+                            if (filters.yearMax && Number(filters.yearMax) <= Number(val))
+                                updateFilter('yearMax', '')
+                        }}
+                        slotProps={{ htmlInput: { min: 1900, max: new Date().getFullYear() } }}
                     />
                     <TextField label="Year to" variant="outlined" size="small" type="number"
                         value={filters.yearMax}
                         onChange={(e) => updateFilter('yearMax', e.target.value)}
+                        error={!!filters.yearMin && !!filters.yearMax && Number(filters.yearMax) <= Number(filters.yearMin)}
+                        helperText={!!filters.yearMin && !!filters.yearMax && Number(filters.yearMax) <= Number(filters.yearMin) ? `Must be greater than ${filters.yearMin}` : ''}
+                        slotProps={{ htmlInput: { min: filters.yearMin ? Number(filters.yearMin) + 1 : 1900, max: new Date().getFullYear() } }}
                     />
 
                     <TextField label="Price from (EUR)" variant="outlined" size="small" type="number"
                         value={filters.priceMin}
-                        onChange={(e) => updateFilter('priceMin', e.target.value)}
+                        onChange={(e) => {
+                            const val = e.target.value
+                            updateFilter('priceMin', val)
+                            if (filters.priceMax && Number(filters.priceMax) <= Number(val))
+                                updateFilter('priceMax', '')
+                        }}
+                        slotProps={{ htmlInput: { min: 0 } }}
                     />
                     <TextField label="Price to (EUR)" variant="outlined" size="small" type="number"
                         value={filters.priceMax}
                         onChange={(e) => updateFilter('priceMax', e.target.value)}
+                        error={!!filters.priceMin && !!filters.priceMax && Number(filters.priceMax) <= Number(filters.priceMin)}
+                        helperText={!!filters.priceMin && !!filters.priceMax && Number(filters.priceMax) <= Number(filters.priceMin) ? `Must be greater than ${Number(filters.priceMin).toLocaleString()} EUR` : ''}
+                        slotProps={{ htmlInput: { min: filters.priceMin ? Number(filters.priceMin) + 1 : 0 } }}
                     />
                 </Box>
 
