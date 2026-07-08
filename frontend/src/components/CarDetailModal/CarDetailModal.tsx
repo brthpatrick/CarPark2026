@@ -32,18 +32,18 @@ export function CarDetailModal({ car, onClose }: Props) {
             </DialogTitle>
 
             <DialogContent>
-                <Box sx={{ display: 'flex', gap: 3, mb: 2 }}>
+                <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 3, mb: 2 }}>
                     <Box
                         component="img"
                         src={`${IMG_BASE_URL}/${car.image}`}
                         alt={`${car.manufacturer} ${car.model}`}
-                        sx={{ width: 300, borderRadius: 2, objectFit: 'cover' }}
+                        sx={{ width: { xs: '100%', sm: 300 }, borderRadius: 2, objectFit: 'cover' }}
                     />
                     <Box sx={{ flex: 1 }}>
                         <Typography variant="h5" color="success.main" sx={{ fontWeight: 700, mb: 2 }}>
                             {car.price.toLocaleString()} €
                         </Typography>
-                        <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 1 }}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 1 }}>
                             <Typography variant="body1"><b>Year:</b> {car.constructionYear}</Typography>
                             <Typography variant="body1"><b>Fuel:</b> {car.fuelType}</Typography>
                             <Typography variant="body1"><b>Mileage:</b> {car.mileage} km</Typography>
