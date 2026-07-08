@@ -7,7 +7,7 @@ import { SortingPanel } from "../SortingPanel/SortingPanel"
 import { useCarsList } from "../../hooks/useCarsList"
 import { PromoBanner } from "../PromoBanner/PromoBanner"
 import { Pagination } from "../Pagination/Pagination"
-import { Box, Typography, CircularProgress } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 
 export function Content() {
     const { filters, showFavoritesOnly } = useFilters()

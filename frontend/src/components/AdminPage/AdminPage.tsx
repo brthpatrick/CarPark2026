@@ -105,7 +105,7 @@ export function AdminPage() {
                 </Button>
             </Box>
 
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{ overflowX: 'auto' }}>
                 <Table size="small">
                     <TableHead>
                         <TableRow>
