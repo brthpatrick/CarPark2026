@@ -10,8 +10,8 @@ import type { SvgIconComponent } from "@mui/icons-material"
 const PROMOS: { title: string; description: string; color: string; icon: SvgIconComponent; type: 'sale' | 'electric' | 'premium' }[] = [
     {
         icon: LocalOfferIcon,
-        title: "Summer Sale!",
-        description: "Up to 20% off on selected cars this month only.",
+        title: "Budget Friendly",
+        description: "Quality cars under 15 000 EUR - great value for your money.",
         color: "#1565c0",
         type: 'sale'
     },
