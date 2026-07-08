@@ -2,6 +2,7 @@ import { CarItem } from "../CarItem/CarItem"
 import { useFilters } from "../../hooks/useFilters"
 import { useFavorites } from "../../hooks/useFavorites"
 import { FiltersPanel } from "../FiltersPanel/FiltersPanel"
+import { CarItemSkeleton } from "../CarItem/CarItemSkeleton"
 import { SortingPanel } from "../SortingPanel/SortingPanel"
 import { useCarsList } from "../../hooks/useCarsList"
 import { PromoBanner } from "../PromoBanner/PromoBanner"
@@ -61,8 +62,8 @@ export function Content() {
             <SortingPanel />
 
             {isLoading && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-                    <CircularProgress />
+                <Box>
+                    {[...Array(5)].map((_, i) => <CarItemSkeleton key={i} />)}
                 </Box>
             )}
 
