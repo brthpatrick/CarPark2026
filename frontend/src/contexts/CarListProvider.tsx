@@ -46,10 +46,10 @@ export function CarListProvider({ children }: PropsWithChildren) {
 
     useEffect(() => {
         getCarList()
-    }, [filters, page, limit, sort, order])
+    }, [filters, page, limit, sort, order, showFavoritesOnly])
 
     return (
-        <CarListContext.Provider value={{ carsList, total,totalPages, isError, isLoading }}>
+        <CarListContext.Provider value={{ carsList, total, totalPages, isError, isLoading }}>
             {children}
         </CarListContext.Provider>
     )

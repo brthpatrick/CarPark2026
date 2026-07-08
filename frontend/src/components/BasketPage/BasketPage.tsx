@@ -18,7 +18,7 @@ export function BasketPage() {
 
     if (basketItems.length === 0) {
         return (
-            <Box sx={{ py: 4, textAlign: 'center' }}>
+            <Box sx={{ py: 4, px: 2, textAlign: 'center' }}>
                 <RemoveShoppingCartIcon sx={{ fontSize: 64, color: 'grey.400' }} />
                 <Typography variant="h5" sx={{ mt: 2 }}>
                     Your cart is empty

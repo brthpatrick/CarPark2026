@@ -42,7 +42,7 @@ export function CarItem({ car }: Props) {
                         {car.manufacturer} {car.model}
                     </Typography>
 
-                    <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0.5, my: 1 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 0.5, my: 1 }}>
                         <Typography variant="body2"><b>Year:</b> {car.constructionYear}</Typography>
                         <Typography variant="body2"><b>Fuel:</b> {car.fuelType}</Typography>
                         <Typography variant="body2"><b>Mileage:</b> {car.mileage} km</Typography>
