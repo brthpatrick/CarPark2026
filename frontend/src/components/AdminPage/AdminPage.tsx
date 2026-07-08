@@ -5,7 +5,8 @@ import { getCars, deleteCar, createCar, updateCar } from "../../data/car"
 import {
     Box, Typography, Button, Table, TableBody, TableCell,
     TableContainer, TableHead, TableRow, Pagination, Paper, IconButton,
-    Dialog, DialogTitle, DialogContent, DialogActions, TextField
+    Dialog, DialogTitle, DialogContent, DialogActions, TextField,
+    FormControl, InputLabel, Select, MenuItem
 } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
@@ -184,13 +185,27 @@ export function AdminPage() {
                 <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
                     <TextField label="Manufacturer" size="small" value={form.manufacturer} onChange={(e) => updateForm('manufacturer', e.target.value)} />
                     <TextField label="Model" size="small" value={form.model} onChange={(e) => updateForm('model', e.target.value)} />
-                    <TextField label="Year" size="small" type="number" value={form.constructionYear} onChange={(e) => updateForm('constructionYear', Number(e.target.value))} />
-                    <TextField label="Mileage (km)" size="small" type="number" value={form.mileage} onChange={(e) => updateForm('mileage', Number(e.target.value))} />
-                    <TextField label="Engine size (cm3)" size="small" type="number" value={form.engineSize} onChange={(e) => updateForm('engineSize', Number(e.target.value))} />
-                    <TextField label="Power (CP)" size="small" type="number" value={form.power} onChange={(e) => updateForm('power', Number(e.target.value))} />
-                    <TextField label="Gearbox" size="small" value={form.gearbox} onChange={(e) => updateForm('gearbox', e.target.value)} />
-                    <TextField label="Fuel type" size="small" value={form.fuelType} onChange={(e) => updateForm('fuelType', e.target.value)} />
-                    <TextField label="Price (EUR)" size="small" type="number" value={form.price} onChange={(e) => updateForm('price', Number(e.target.value))} />
+                    <TextField label="Year" size="small" type="number" value={form.constructionYear || ''} onChange={(e) => updateForm('constructionYear', e.target.value === '' ? 0 : Number(e.target.value))} />
+                    <TextField label="Mileage (km)" size="small" type="number" value={form.mileage || ''} onChange={(e) => updateForm('mileage', e.target.value === '' ? 0 : Number(e.target.value))} />
+                    <TextField label="Engine size (cm3)" size="small" type="number" value={form.engineSize || ''} onChange={(e) => updateForm('engineSize', e.target.value === '' ? 0 : Number(e.target.value))} />
+                    <TextField label="Power (CP)" size="small" type="number" value={form.power || ''} onChange={(e) => updateForm('power', e.target.value === '' ? 0 : Number(e.target.value))} />
+                    <FormControl size="small">
+                        <InputLabel>Gearbox</InputLabel>
+                        <Select value={form.gearbox} label="Gearbox" onChange={(e) => updateForm('gearbox', e.target.value)}>
+                            <MenuItem value="Manual">Manual</MenuItem>
+                            <MenuItem value="Automatic">Automatic</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl size="small">
+                        <InputLabel>Fuel type</InputLabel>
+                        <Select value={form.fuelType} label="Fuel type" onChange={(e) => updateForm('fuelType', e.target.value)}>
+                            <MenuItem value="Petrol">Petrol</MenuItem>
+                            <MenuItem value="Diesel">Diesel</MenuItem>
+                            <MenuItem value="Electric">Electric</MenuItem>
+                            <MenuItem value="Hybrid">Hybrid</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <TextField label="Price (EUR)" size="small" type="number" value={form.price || ''} onChange={(e) => updateForm('price', e.target.value === '' ? 0 : Number(e.target.value))} />
                     <Box>
                         <Button
                             variant="outlined"

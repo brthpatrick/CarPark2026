@@ -4019,6 +4019,21 @@
       "description": "Mașina arată foarte bine estetic, atât la exterior, cât și la interior, și este o mașină confortabilă, puternică și foarte plăcută la drum lung. Culoare albastru metalizat, aspect elegant, întreținută cu grijă. Tara de origine este Romania.",
       "equipment": "echipare Highline, cutie automată DSG, climatronic, moduri de condus, tapiserie Alcantara, geamuri electrice față/spate, senzori parcare față/spate",
       "vin": "8204ee9f-20b7-4fff-b630-feefc1ada9d1"
+    },
+    {
+      "image": "kia-sportage.png",
+      "manufacturer": "Kia ",
+      "model": "Sportage",
+      "constructionYear": 2022,
+      "mileage": 79000,
+      "engineSize": 1598,
+      "power": 135,
+      "gearbox": "Automatic",
+      "fuelType": "Hybrid",
+      "price": 25900,
+      "description": "OFFICIAL ITALIAN CAR, SINGLE OWNER TO DATE IT HAS TRAVELLED 79,368 REAL, CERTIFIED AND DEMONSTRABLE KM\nCOMPLIES WITH THE EURO 6D - ISC - FCM EXHAUST GAS REGULATIONS",
+      "equipment": "GT LINE PLUS TRIM, REAR CAMERA, FRONT AND REAR PARKING SENSORS, 19'' ALLOY WHEELS, TINTED REAR WINDOWS, LED HEADLIGHTS, AUTOMATIC TRANSMISSION WITH STEERING WHEEL SHIFT, SPORTS SEATS IN LEATHER AND ALCANTARA, ELECTRICALLY ADJUSTABLE SEATS\nHEATED SEATS, MULTIFUNCTION LEATHER STEERING WHEEL\nHEATED STEERING WHEEL, ADAPTIVE CRUISE CONTROL, SPEED LIMITER, ANTI-COLLISION, ELECTRIC LANE CONTROL\nDUAL-ZONE AUTOMATIC AIR CONDITIONING, BLUETOOTH",
+      "vin": "1765b57b-a5ba-4b59-9d3e-6bc3ddc43109"
     }
   ],
   "basket": [],
