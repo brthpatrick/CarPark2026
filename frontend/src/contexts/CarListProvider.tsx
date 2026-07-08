@@ -9,6 +9,7 @@ export function CarListProvider({ children }: PropsWithChildren) {
     const { filters, page, limit, sort, order, showFavoritesOnly } = useFilters()
 
     const [carsList, setCarsList] = useState<Car[]>([])
+    const [total, setTotal] = useState(0)
     const [totalPages, setTotalPages] = useState(1)
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
@@ -35,6 +36,7 @@ export function CarListProvider({ children }: PropsWithChildren) {
             })
             setCarsList(result.items)
             setTotalPages(result.totalPages)
+            setTotal(result.total)
         } catch {
             setIsError(true)
         } finally {
@@ -47,7 +49,7 @@ export function CarListProvider({ children }: PropsWithChildren) {
     }, [filters, page, limit, sort, order])
 
     return (
-        <CarListContext.Provider value={{ carsList, totalPages, isError, isLoading }}>
+        <CarListContext.Provider value={{ carsList, total,totalPages, isError, isLoading }}>
             {children}
         </CarListContext.Provider>
     )

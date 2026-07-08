@@ -3,6 +3,7 @@ import type { Car } from "../models/car";
 
 type CarListContextType = {
     carsList: Car[];
+    total: number;
     totalPages: number;
     isError: boolean;
     isLoading: boolean;
