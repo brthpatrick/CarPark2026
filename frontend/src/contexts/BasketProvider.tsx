@@ -4,16 +4,18 @@ import type { Car } from "../models/car"
 import { BasketContext } from "./BasketContext"
 import { getBasket, createBasket, deleteBasket } from "../data/basket"
 import { useEffect } from "react"
+import { useNotification } from "../hooks/useNotification"
 
 export function BasketProvider({ children }: PropsWithChildren) {
     const [basketItems, setBasketItems] = useState<Car[]>([])
+    const { showNotification } = useNotification()
 
     const loadBasket = useCallback(async () => {
         try {
             const result = await getBasket()
             setBasketItems(result)
         } catch {
-            console.error("Failed to load basket")
+            showNotification("Failed to load cart", "error")
         }
     }, [])
 
@@ -29,12 +31,14 @@ export function BasketProvider({ children }: PropsWithChildren) {
         if (!isInBasket(car)) {
             await createBasket(car)
             await loadBasket()
+            showNotification(`${car.manufacturer} ${car.model} added to cart`)
         }
     }, [isInBasket, loadBasket])
 
     const removeFromBasket = useCallback(async (vin: string) => {
         await deleteBasket(vin)
         await loadBasket()
+        showNotification("Item removed from cart", 'info')
     }, [loadBasket])
 
     const clearBasket = useCallback(async () => {

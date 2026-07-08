@@ -2,18 +2,20 @@ import { useState, useEffect, useCallback } from "react"
 import type { PropsWithChildren } from "react"
 import type { Car } from "../models/car"
 import type { Favorite } from "../models/favorites"
+import { useNotification } from "../hooks/useNotification"
 import { getFavorites, createFavorite, deleteFavorite } from "../data/favorites"
 import { FavoritesContext } from "./FavoritesContext"
 
 export function FavoritesProvider({ children }: PropsWithChildren) {
     const [favorites, setFavorites] = useState<Favorite[]>([])
+    const { showNotification } = useNotification()
 
     const loadFavorites = useCallback(async () => {
         try {
             const result = await getFavorites()
             setFavorites(result)
         } catch {
-            console.error("Failed to load favorites")
+            showNotification("Failed to load favorites", "error")
         }
     }, [])
 
@@ -28,11 +30,14 @@ export function FavoritesProvider({ children }: PropsWithChildren) {
     const toggleFavorite = useCallback(async (car: Car) => {
         if (isFavorite(car)) {
             await deleteFavorite({ vin: car.vin })
+            showNotification('Removed from favorites', 'info')
         } else {
             await createFavorite({ vin: car.vin })
+            showNotification(`${car.manufacturer} ${car.model} added to favorites`)
         }
         await loadFavorites()
-    }, [isFavorite, loadFavorites])
+    }, [isFavorite, loadFavorites, showNotification])
+
 
     return (
         <FavoritesContext.Provider value={{ favorites, toggleFavorite, isFavorite }}>
