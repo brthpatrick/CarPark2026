@@ -22,10 +22,18 @@ export function CarItem({ car }: Props) {
 
     return (
         <>
-            <Card variant="outlined" sx={{ display: 'flex', mb: 2, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setShowModal(true)}>
+            <Card variant="outlined" sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                mb: 2, overflow: 'hidden', cursor: 'pointer'
+            }} onClick={() => setShowModal(true)}>
                 <CardMedia
                     component="img"
-                    sx={{ width: 280, objectFit: 'cover' }}
+                    sx={{ 
+                        width: { xs: '100%', sm: 280 },
+                        height: { xs: 200, sm: 'auto' },
+                        objectFit: 'cover'
+                    }}
                     image={`${IMG_BASE_URL}/${car.image}`}
                     alt={`${car.manufacturer} ${car.model}`}
                 />
@@ -58,7 +66,7 @@ export function CarItem({ car }: Props) {
                             color="error"
                             size="small"
                             startIcon={isFavorite(car) ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                            onClick={(e) => { e.stopPropagation(); toggleFavorite(car)}}
+                            onClick={(e) => { e.stopPropagation(); toggleFavorite(car) }}
                         >
                             {isFavorite(car) ? "Remove" : "Favorite"}
                         </Button>
@@ -67,7 +75,7 @@ export function CarItem({ car }: Props) {
                             color="primary"
                             size="small"
                             startIcon={isInBasket(car) ? <RemoveShoppingCartIcon /> : <ShoppingCartIcon />}
-                            onClick={(e) => { e.stopPropagation(); isInBasket(car) ? removeFromBasket(car.vin) : addToBasket(car)}}
+                            onClick={(e) => { e.stopPropagation(); isInBasket(car) ? removeFromBasket(car.vin) : addToBasket(car) }}
                         >
                             {isInBasket(car) ? "Remove" : "Add to cart"}
                         </Button>

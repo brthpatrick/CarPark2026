@@ -51,6 +51,7 @@ export function PromoBanner() {
                     key={i}
                     sx={{
                         flex: '1 1 250px',
+                        minWidth: 0,
                         p: 2.5,
                         background: promo.color,
                         color: '#fff',

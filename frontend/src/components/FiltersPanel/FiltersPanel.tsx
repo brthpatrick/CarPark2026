@@ -23,7 +23,7 @@ export function FiltersPanel() {
                 </Box>
             </AccordionSummary>
             <AccordionDetails>
-                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, mb: 2 }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2, mb: 2 }}>
                     <TextField
                         label="Manufacturer" variant="outlined" size="small"
                         value={filters.manufacturer}
@@ -76,7 +76,7 @@ export function FiltersPanel() {
                     />
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                     <FormControlLabel
                         control={
                             <Checkbox checked={showFavoritesOnly}
