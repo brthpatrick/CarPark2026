@@ -50,6 +50,9 @@ export function CarDetailModal({ car, onClose }: Props) {
                             <Typography variant="body1"><b>Engine:</b> {car.engineSize}</Typography>
                             <Typography variant="body1"><b>Power:</b> {car.power} hp</Typography>
                             <Typography variant="body1"><b>Gearbox:</b> {car.gearbox}</Typography>
+                            <Typography variant="body1" sx={{ gridColumn: { sm: '1 / -1' } }}>
+                                <b>VIN:</b> {car.vin}
+                            </Typography>
                         </Box>
                     </Box>
                 </Box>

@@ -14,8 +14,8 @@ import AddIcon from "@mui/icons-material/Add"
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward"
 
-const emptyForm: Omit<Car, 'vin'> = {
-    image: '', manufacturer: '', model: '', constructionYear: 2020,
+const emptyForm: Car = {
+    vin: '', image: '', manufacturer: '', model: '', constructionYear: 2020,
     mileage: 0, engineSize: 0, power: 0, gearbox: 'Manual',
     fuelType: 'Petrol', price: 0, description: '', equipment: ''
 }
@@ -24,7 +24,7 @@ export function AdminPage() {
     const [cars, setCars] = useState<Car[]>([])
     const [dialogOpen, setDialogOpen] = useState(false)
     const [editingCar, setEditingCar] = useState<Car | null>(null)
-    const [form, setForm] = useState<Omit<Car, 'vin'>>(emptyForm)
+    const [form, setForm] = useState<Car>(emptyForm)
     const [uploading, setUploading] = useState(false)
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
@@ -42,8 +42,7 @@ export function AdminPage() {
 
     const handleEdit = (car: Car) => {
         setEditingCar(car)
-        const { vin, ...rest } = car
-        setForm(rest)
+        setForm(car)
         setDialogOpen(true)
     }
 
@@ -62,18 +61,28 @@ export function AdminPage() {
 
     const handleSave = async () => {
         if (editingCar) {
-            await updateCar({ ...form, vin: editingCar.vin })
+            if (form.vin !== editingCar.vin) {
+                await deleteCar(editingCar.vin)
+                await createCar(form)
+            } else {
+                await updateCar(form)
+            }
         } else {
-            const vin = crypto.randomUUID()
-            await createCar({ ...form, vin })
+            await createCar(form)
         }
         setDialogOpen(false)
         await loadCars()
     }
 
-    const updateForm = (field: keyof typeof form, value: string | number) => {
+    const updateForm = (field: keyof Car, value: string | number) => {
         setForm(prev => ({ ...prev, [field]: value }))
     }
+
+    const vinError = form.vin.length > 0 && form.vin.length !== 17
+    const vinHelperText = vinError
+        ? 'VIN must be exactly 17 characters'
+        : form.vin.length > 0 ? `${form.vin.length}/17` : ''
+    const isSaveDisabled = !form.image || form.vin.trim().length !== 17
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -183,6 +192,15 @@ export function AdminPage() {
             <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} maxWidth="sm" fullWidth>
                 <DialogTitle>{editingCar ? 'Edit Car' : 'Add New Car'}</DialogTitle>
                 <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 2 }}>
+                    <TextField
+                        label="VIN"
+                        size="small"
+                        value={form.vin}
+                        onChange={(e) => updateForm('vin', e.target.value.toUpperCase())}
+                        error={vinError}
+                        helperText={vinHelperText}
+                        slotProps={{ htmlInput: { maxLength: 17 } }}
+                    />
                     <TextField label="Manufacturer" size="small" value={form.manufacturer} onChange={(e) => updateForm('manufacturer', e.target.value)} />
                     <TextField label="Model" size="small" value={form.model} onChange={(e) => updateForm('model', e.target.value)} />
                     <TextField label="Year" size="small" type="number" value={form.constructionYear || ''} onChange={(e) => updateForm('constructionYear', e.target.value === '' ? 0 : Number(e.target.value))} />
@@ -227,7 +245,7 @@ export function AdminPage() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
-                    <Button variant="contained" onClick={handleSave} disabled={!form.image}>
+                    <Button variant="contained" onClick={handleSave} disabled={isSaveDisabled}>
                         Save
                     </Button>
                 </DialogActions>

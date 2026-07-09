@@ -4006,21 +4006,6 @@
       "equipment": "Apple Carplay, Android Auto, Bluetooth, Radio, Hands-free system, USB port, Wireless charging, Navigation system, Audio system, Touch screen monitor, Voice control, Internet connection, Climatronic 2 zones, Leather upholstery, Rear air conditioning, Driver seat heating, Passenger seat heating, Front sports seats, Armrest (front), Armrest (rear), Leather steering wheel, Steering wheel with controls, Multifunctional steering wheel, Rain sensor, Heated windshield, Electric windows, Privacy glass, LED headlights, Parking sensors, Speed limiter, Brake assist, Traction control, LED taillights, Start/Stop system, Wheel pressure sensors, Power steering, ABS, ESP, Driver airbag, Passenger airbag, Isofix"
     },
     {
-      "image": "vw-passat.png",
-      "manufacturer": "Volkswagen",
-      "model": "Passat",
-      "constructionYear": 2015,
-      "mileage": 95000,
-      "engineSize": 1984,
-      "power": 220,
-      "gearbox": "Automata",
-      "fuelType": "Petrol",
-      "price": 18900,
-      "description": "Mașina arată foarte bine estetic, atât la exterior, cât și la interior, și este o mașină confortabilă, puternică și foarte plăcută la drum lung. Culoare albastru metalizat, aspect elegant, întreținută cu grijă. Tara de origine este Romania.",
-      "equipment": "echipare Highline, cutie automată DSG, climatronic, moduri de condus, tapiserie Alcantara, geamuri electrice față/spate, senzori parcare față/spate",
-      "vin": "8204ee9f-20b7-4fff-b630-feefc1ada9d1"
-    },
-    {
       "image": "kia-sportage.png",
       "manufacturer": "Kia ",
       "model": "Sportage",
@@ -4034,6 +4019,21 @@
       "description": "OFFICIAL ITALIAN CAR, SINGLE OWNER TO DATE IT HAS TRAVELLED 79,368 REAL, CERTIFIED AND DEMONSTRABLE KM\nCOMPLIES WITH THE EURO 6D - ISC - FCM EXHAUST GAS REGULATIONS",
       "equipment": "GT LINE PLUS TRIM, REAR CAMERA, FRONT AND REAR PARKING SENSORS, 19'' ALLOY WHEELS, TINTED REAR WINDOWS, LED HEADLIGHTS, AUTOMATIC TRANSMISSION WITH STEERING WHEEL SHIFT, SPORTS SEATS IN LEATHER AND ALCANTARA, ELECTRICALLY ADJUSTABLE SEATS\nHEATED SEATS, MULTIFUNCTION LEATHER STEERING WHEEL\nHEATED STEERING WHEEL, ADAPTIVE CRUISE CONTROL, SPEED LIMITER, ANTI-COLLISION, ELECTRIC LANE CONTROL\nDUAL-ZONE AUTOMATIC AIR CONDITIONING, BLUETOOTH",
       "vin": "1765b57b-a5ba-4b59-9d3e-6bc3ddc43109"
+    },
+    {
+      "image": "vw-passat.png",
+      "manufacturer": "Volkswagen",
+      "model": "Passat",
+      "constructionYear": 2015,
+      "mileage": 95000,
+      "engineSize": 1984,
+      "power": 220,
+      "gearbox": "Automatic",
+      "fuelType": "Petrol",
+      "price": 18900,
+      "description": "Mașina arată foarte bine estetic, atât la exterior, cât și la interior, și este o mașină confortabilă, puternică și foarte plăcută la drum lung. Culoare albastru metalizat, aspect elegant, întreținută cu grijă. Tara de origine este Romania.",
+      "equipment": "echipare Highline, cutie automată DSG, climatronic, moduri de condus, tapiserie Alcantara, geamuri electrice față/spate, senzori parcare față/spate",
+      "vin": "VF1CMRG0630182255"
     }
   ],
   "basket": [],
